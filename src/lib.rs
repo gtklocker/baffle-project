@@ -13,7 +13,7 @@ mod tests {
         let first_account = web3.eth().accounts().wait().unwrap()[0];
         let simple_storage_artifact = baffle::get_artifact("SimpleStorage");
         let simple_storage = baffle::deploy_contract(&simple_storage_artifact, &web3, first_account);
-        simple_storage.call("set", (42,), first_account, Options::default());
+        simple_storage.call("set", (U256::from(42),), first_account, Options::default());
 
         let result: U256 = simple_storage.query("get", (), None, Options::default(), None).wait().unwrap();
         assert_eq!(result.as_u32(), 42);
